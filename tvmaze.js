@@ -26,14 +26,34 @@ async function searchShows(query) {
   // let idx = Math.floor(Math.random() * numberOfMovies);
   // console.log(response.data[idx]);
   for (let idx = 0; idx < numberOfMovies; idx++){
-    return [
-      {
-        id: response.data[idx].show.id,
-        name: response.data[idx].show.name,
-        summary: response.data[idx].show.summary,
-        image: response.data[idx].show.image.original
-      }
-    ]
+    if (response.data[idx].show.image.original){
+      return [
+        {
+          id: response.data[idx].show.id,
+          name: response.data[idx].show.name,
+          summary: response.data[idx].show.summary,
+          image: response.data[idx].show.image.original
+        }
+      ]
+    } else {
+      return [
+        {
+          id: response.data[idx].show.id,
+          name: response.data[idx].show.name,
+          summary: response.data[idx].show.summary,
+          image: "https://tinyurl.com/tv-missing"
+        }
+      ]
+
+    }
+    // return [
+    //   {
+    //     id: response.data[idx].show.id,
+    //     name: response.data[idx].show.name,
+    //     summary: response.data[idx].show.summary,
+    //     image: response.data[idx].show.image.original
+    //   }
+    // ]
   }
   // return [
   //   {
@@ -59,10 +79,11 @@ function populateShows(shows) {
     let $item = $(
       `<div class="col-md-6 col-lg-3 Show" data-show-id="${show.id}">
          <div class="card" data-show-id="${show.id}">
-           <div class="card-body">
-             <h5 class="card-title">${show.name}</h5>
-             <p class="card-text">${show.summary}</p>
-           </div>
+          <img class="card-img-top" src="${show.image}">
+          <div class="card-body">
+            <h5 class="card-title">${show.name}</h5>
+            <p class="card-text">${show.summary}</p>
+          </div>
          </div>
        </div>
       `);
