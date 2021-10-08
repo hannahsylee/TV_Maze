@@ -36,8 +36,6 @@ async function searchShows(query) {
 
 }
 
-
-
 /** Populate shows list:
  *     - given list of shows, add shows to DOM
  */
@@ -55,7 +53,7 @@ function populateShows(shows) {
             <h5 class="card-title">${show.name}</h5>
             <p class="card-text">${show.summary}</p>
           </div>
-          <button type="button" class="btn btn-primary" id="episode-btn">Episodes</button>
+          <button type="button" class="btn btn-primary" data-toggle="popover" id="episode-btn">Episodes</button> 
         </div>
        </div>
       `);
@@ -63,6 +61,8 @@ function populateShows(shows) {
     $showsList.append($item);
   }
 }
+
+
 
 
 /** Handle search form submission:
@@ -124,6 +124,8 @@ function populateEpisodes(episodes) {
 
     $episodesList.append(newLi);
   }
+
+
   $("#episodes-area").show();
 }
 
@@ -145,5 +147,7 @@ $("#shows-list").on("click", "#episode-btn", async function handleSearch (evt) {
   // console.log(showId);
   let episodes = await getEpisodes(showId);
   populateEpisodes(episodes);
+  // $('#episode-btn').data("content", populateEpisodes(episodes));
 
 });
+
